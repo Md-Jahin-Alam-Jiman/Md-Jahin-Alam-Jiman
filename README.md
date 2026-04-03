@@ -1,65 +1,75 @@
-<!-- Header / Intro -->
-<h1 align="center">Hi 👋, I'm [Your Name]</h1>
-<h3 align="center">[Your Role – e.g., Full‑Stack Developer / DevOps Engineer / ML Enthusiast]</h3>
+<h1 align="center">🔐 [Your Name]</h1>
+<h3 align="center">CSE 2nd Year Student | Cybersecurity Beginner | CTF Enthusiast</h3>
 
 <p align="center">
-  <a href="https://[your-portfolio.com]" target="_blank">🌐 Portfolio</a> •
-  <a href="https://linkedin.com/in/[your-linkedin]" target="_blank">🔗 LinkedIn</a> •
-  <a href="https://twitter.com/[your-twitter]" target="_blank">🐦 Twitter</a> •
-  <a href="mailto:[your-email]">📧 Email</a>
-</p>
-
-<!-- Short bio -->
-<p align="center">
-  🚀 I build [type of software] that [solves what problem].<br>
-  🌱 Currently diving deep into [technology/language/framework].<br>
-  💬 Ask me about [your top skills].<br>
-  ⚡ Fun fact: [something interesting about you].
+  <a href="https://linkedin.com/in/[your-linkedin]">LinkedIn</a> •
+  <a href="https://tryhackme.com/p/[your-thm-username]">TryHackMe</a> •
+  <a href="https://github.com/[your-github-username]">GitHub</a> •
+  <a href="mailto:[your-email]">Email</a>
 </p>
 
 ---
 
-### 🛠️ Tech Stack
+### 👋 About Me
+
+- 🎓 2nd year CSE student, passionate about **cybersecurity** and **offensive security**.
+- 🧠 Currently learning: **Linux fundamentals**, **Python for security**, **Wireshark**, **Nmap**, and basic **cryptography**.
+- 🏁 Slowly solving CTF challenges on TryHackMe & PicoCTF – every flag is a win 🚩.
+- 💻 Languages I know: Python (favourite), C, Bash, and a bit of SQL.
+- 🎯 2026 goal: Get my **CompTIA Security+** and complete **100+ CTF challenges**.
+
+---
+
+### 🛠️ Tools & Technologies I’m Learning
 
 <p align="center">
-  <!-- Copy badges from shields.io – examples below -->
   <img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff" />
-  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000" />
-  <img src="https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB" />
-  <img src="https://img.shields.io/badge/Node.js-339933?logo=nodedotjs&logoColor=fff" />
-  <img src="https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff" />
-  <img src="https://img.shields.io/badge/Kubernetes-326CE5?logo=kubernetes&logoColor=fff" />
-  <img src="https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=fff" />
+  <img src="https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=000" />
+  <img src="https://img.shields.io/badge/Wireshark-1679A7?logo=wireshark&logoColor=fff" />
+  <img src="https://img.shields.io/badge/Nmap-0E83CD?logo=nmap&logoColor=fff" />
+  <img src="https://img.shields.io/badge/Bash-4EAA25?logo=gnubash&logoColor=fff" />
+  <img src="https://img.shields.io/badge/SQL-4479A1?logo=mysql&logoColor=fff" />
+  <img src="https://img.shields.io/badge/Kali%20Linux-557C94?logo=kalilinux&logoColor=fff" />
 </p>
 
 ---
 
-### 📌 Pinned Projects (you can replace these with your actual pinned repos)
+### 📌 Featured Repositories (my learning projects)
 
 | Project | Description |
 |---------|-------------|
-| **[Project 1 Name](link)** | Short description – what it does, main tech. |
-| **[Project 2 Name](link)** | Short description – key challenge solved. |
-| **[Project 3 Name](link)** | Short description – highlight a unique feature. |
+| [**Port Scanner**](link-to-repo) | A simple Python script that scans open ports on a target IP – my first step into network recon. |
+| [**Password Strength Checker**](link-to-repo) | Checks password entropy and warns against common weak patterns (no storage, just analysis). |
+| [**Caesar Cipher Tool**](link-to-repo) | CLI tool to encrypt/decrypt text – learning basic cryptography. |
+| [**Log Analyzer**](link-to-repo) | Parses Apache logs and flags suspicious IPs (e.g., too many 404s or failed logins). |
+
+> 💡 *These are small, beginner projects – but each one taught me a real security concept.*
 
 ---
 
-### 📈 GitHub Stats
+### 📈 GitHub Stats (proof of consistency)
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=[your-username]&show_icons=true&theme=radical&hide_title=true" />
+  <img src="https://github-readme-stats.vercel.app/api?username=[your-github-username]&show_icons=true&theme=dark&hide_title=true" />
   <br/>
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=[your-username]&theme=radical" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=[your-github-username]&layout=compact&theme=dark" />
 </p>
 
 ---
 
-### 🧠 Currently working on
+### 🧭 What I’m working on right now
 
-- 🔭 [Project / skill you’re actively building]
-- 📖 Reading [book / docs / course]
-- 🤝 Looking to collaborate on [type of open‑source project]
+- 🔭 Building a **simple keylogger detector** (for Windows) – educational, ethical use only.
+- 📖 Reading: *The Web Application Hacker’s Handbook* (slowly but surely).
+- 🤝 Looking for **beginners like me** to team up for small CTF events or study groups.
 
 ---
 
-> 💡 *This README is a living document – I update it as I learn and build new things.*
+### ⚡ A note about my journey
+
+> I don’t know everything – but I commit something every day, and I’m not afraid to break things (in a VM).  
+> If you’re also a student starting in cybersecurity, let’s learn together 🚀
+
+---
+
+*Last updated: April 2026*
