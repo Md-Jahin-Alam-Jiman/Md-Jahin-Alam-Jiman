@@ -1,11 +1,10 @@
-<h1 align="center">🔐 [Your Name]</h1>
+<!-- <h1 align="center">🔐 Md Jahin Alam Jiman</h1>
 <h3 align="center">CSE 2nd Year Student | Cybersecurity Beginner | CTF Enthusiast</h3>
 
 <p align="center">
-  <a href="https://linkedin.com/in/[your-linkedin]">LinkedIn</a> •
-  <a href="https://tryhackme.com/p/[your-thm-username]">TryHackMe</a> •
-  <a href="https://github.com/[your-github-username]">GitHub</a> •
-  <a href="mailto:[your-email]">Email</a>
+  <a href="https://www.linkedin.com/in/md-jahin-alam-jiman-343b16388">LinkedIn</a> •
+  <a href="https://github.com/Md-Jahin-Alam-Jiman">GitHub</a> •
+  <a href="mailto:mdjahinalam905048@gmail.com">Email</a>
 </p>
 
 ---
@@ -72,4 +71,4 @@
 
 ---
 
-*Last updated: April 2026*
+*Last updated: April 2026* -->
