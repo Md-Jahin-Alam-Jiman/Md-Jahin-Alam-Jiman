@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Animated Responsive Navbar | Flexbox + JS Toggle</title>
+    <style>
+        /* ---------- RESET & GLOBAL ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            min-height: 100vh;
+        }
+
+        /* ---------- NAVBAR (FLEXBOX + STICKY) ---------- */
+        .navbar {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 72px;
+        }
+
+        /* logo with subtle animation */
+        .logo {
+            font-size: 1.7rem;
+            font-weight: 800;
+            background: linear-gradient(130deg, #2563eb, #4f46e5);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-decoration: none;
+            letter-spacing: -0.3px;
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+        .logo:hover {
+            transform: scale(1.02);
+        }
+
+        /* desktop nav-links (flex row) */
+        .nav-links {
+            display: flex;
+            gap: 2.2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1e293b;
+            font-size: 1rem;
+            transition: all 0.25s ease;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        /* animated underline hover effect */
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 2.5px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links li a:hover {
+            color: #2563eb;
+        }
+
+        .nav-links li a:hover::after {
+            width: 100%;
+        }
+
+        /* active link styling (optional) */
+        .nav-links li a.active {
+            color: #2563eb;
+            font-weight: 600;
+        }
+        .nav-links li a.active::after {
+            width: 100%;
+            background: #2563eb;
+        }
+
+        /* ----- HAMBURGER (mobile only) ----- */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            background: transparent;
+            border: none;
+            padding: 0.5rem;
+            z-index: 1100;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 2.5px;
+            background-color: #1e293b;
+            border-radius: 4px;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        /* ----- MOBILE MENU (overlay + slide animation) ----- */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            /* mobile nav links: start hidden, sliding from right */
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 75%;
+                max-width: 320px;
+                height: 100vh;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(12px);
+                flex-direction: column;
+                justify-content: center;
+                gap: 2.2rem;
+                padding: 2rem;
+                box-shadow: -8px 0 30px rgba(0, 0, 0, 0.15);
+                transition: right 0.35s ease-in-out;
+                z-index: 1050;
+                border-left: 1px solid rgba(0, 0, 0, 0.05);
+                pointer-events: auto;
+            }
+
+            /* when active class is added, menu slides in */
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li a {
+                font-size: 1.25rem;
+                display: block;
+                text-align: center;
+                padding: 0.5rem;
+            }
+
+            /* overlay background (dark) */
+            .menu-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.4);
+                backdrop-filter: blur(3px);
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.3s ease, visibility 0.3s;
+                z-index: 1040;
+            }
+            .menu-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            /* adjust container to keep logo visible */
+            .nav-container {
+                padding: 0 1.2rem;
+            }
+        }
+
+        /* hamburger animation (X) */
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* desktop reset (ensures no mobile styles interfere) */
+        @media (min-width: 769px) {
+            .nav-links {
+                position: static;
+                width: auto;
+                height: auto;
+                background: transparent;
+                backdrop-filter: none;
+                flex-direction: row;
+                gap: 2.2rem;
+                padding: 0;
+                box-shadow: none;
+                border-left: none;
+                transition: none;
+                pointer-events: auto;
+            }
+            .menu-overlay {
+                display: none;
+            }
+        }
+
+        /* ---------- CONTENT STYLES (demo) ---------- */
+        .hero-section {
+            max-width: 1100px;
+            margin: 4rem auto;
+            padding: 0 1.8rem;
+            text-align: center;
+        }
+        .hero-section h1 {
+            font-size: 2.6rem;
+            font-weight: 800;
+            background: linear-gradient(145deg, #0f172a, #334155);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+        .hero-section p {
+            font-size: 1.15rem;
+            color: #334155;
+            max-width: 640px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        .card {
+            background: white;
+            border-radius: 1.8rem;
+            padding: 1.6rem;
+            flex: 1 1 260px;
+            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eef2ff;
+            transition: all 0.25s;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.12);
+        }
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.6rem;
+            color: #0f172a;
+        }
+        .card p {
+            color: #475569;
+        }
+
+        /* js description box */
+        .js-description {
+            background: #1e293b;
+            color: #e2e8f0;
+            border-radius: 1.5rem;
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 1.8rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            border-left: 6px solid #3b82f6;
+            box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.2);
+        }
+        .js-description h3 {
+            color: #facc15;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .js-description code {
+            background: #0f172a;
+            padding: 0.2rem 0.4rem;
+            border-radius: 8px;
+            color: #94a3f8;
+        }
+        .js-description p {
+            margin: 0.8rem 0;
+            line-height: 1.5;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #5b6e8c;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 2rem;
+        }
+        @media (max-width: 500px) {
+            .hero-section h1 { font-size: 1.8rem; }
+            .nav-container { padding: 0 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== SEMANTIC NAVBAR ========== -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo" aria-label="Brand">✨ AnimateNav</a>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" class="nav-link active">Home</a></li>
+                <li><a href="#" class="nav-link">Features</a></li>
+                <li><a href="#" class="nav-link">Pricing</a></li>
+                <li><a href="#" class="nav-link">About</a></li>
+                <li><a href="#" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+        <!-- dynamic overlay for mobile (added via JS) -->
+    </nav>
+
+    <!-- main content -->
+    <main>
+        <div class="hero-section">
+            <h1>Fully Responsive + Animated Navbar</h1>
+            <p>Flexbox layout • Smooth mobile slide‑in • Hamburger X animation • Overlay backdrop • Active link highlight</p>
+        </div>
+        <div class="card-container">
+            <div class="card"><h3>📱 Mobile Slide</h3><p>Menu enters from right with easing, plus dark overlay for focus.</p></div>
+            <div class="card"><h3>⚡ Flexbox Power</h3><p>Perfect alignment, no floats. Works on all devices.</p></div>
+            <div class="card"><h3>🍔 Animated Toggle</h3><p>Hamburger transforms into close icon with smooth rotation.</p></div>
+            <div class="card"><h3>🧠 JS Explained</h3><p>Read the description box below – all JavaScript commented.</p></div>
+        </div>
+
+        <!-- JavaScript description box (for learning) -->
+        <div class="js-description" id="jsExplanation">
+            <h3>📘 JavaScript Breakdown (how the navbar works)</h3>
+            <p>🔹 <strong>1. DOM selection</strong> – We grab the hamburger button, nav menu, all links, and create an overlay.</p>
+            <p>🔹 <strong>2. Toggle function (<code>toggleMenu()</code>)</strong> – Adds/removes <code>.active</code> class on menu & hamburger. Updates <code>aria-expanded</code> for accessibility. Also toggles the overlay visibility.</p>
+            <p>🔹 <strong>3. Close function (<code>closeMenu()</code>)</strong> – Removes active classes and overlay, used after clicking a link or tapping overlay.</p>
+            <p>🔹 <strong>4. Event listeners</strong> – Hamburger click toggles menu. Each nav link click <strong>closes menu automatically</strong> (great UX). Overlay click also closes menu.</p>
+            <p>🔹 <strong>5. Resize handler</strong> – If window width > 768px and menu is open, we reset classes to avoid stuck state.</p>
+            <p>🔹 <strong>6. Active link highlight</strong> – Uses <code>scroll</code> or simple current page detection (demo shows first link active).</p>
+            <p>✨ All transitions are CSS‑based (slide, opacity, rotation) → but JavaScript controls class toggles.</p>
+        </div>
+    </main>
+    <footer>
+        <p>Responsive Navbar | Flexbox + JS Mobile Toggle | Smooth animations + Overlay</p>
+    </footer>
+
+    <script>
+        // ============================================================
+        //  ENHANCED RESPONSIVE NAVBAR - JAVASCRIPT (FULLY COMMENTED)
+        //  Features: mobile slide menu, overlay, close on link click,
+        //  hamburger animation, resize fix, ARIA accessibility.
+        // ============================================================
+
+        (function() {
+            // ---------- 1. GET DOM ELEMENTS ----------
+            const hamburger = document.getElementById('hamburgerBtn');
+            const navMenu = document.getElementById('navLinks');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            // Create overlay div dynamically (for mobile backdrop)
+            let overlay = document.querySelector('.menu-overlay');
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.className = 'menu-overlay';
+                document.body.appendChild(overlay);
+            }
+
+            // ---------- 2. HELPER FUNCTIONS ----------
+            // Function to open the mobile menu
+            function openMenu() {
+                navMenu.classList.add('active');
+                hamburger.classList.add('active');
+                hamburger.setAttribute('aria-expanded', 'true');
+                overlay.classList.add('active');
+                // prevent body scroll when menu is open (optional)
+                document.body.style.overflow = 'hidden';
+            }
+
+            // Function to close the mobile menu
+            function closeMenu() {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                overlay.classList.remove('active');
+                // restore body scroll
+                document.body.style.overflow = '';
+            }
+
+            // Toggle menu based on current state
+            function toggleMenu() {
+                if (navMenu.classList.contains('active')) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            }
+
+            // ---------- 3. EVENT LISTENERS ----------
+            // Hamburger button click -> toggle menu
+            if (hamburger) {
+                hamburger.addEventListener('click', toggleMenu);
+            }
+
+            // When any nav link is clicked -> close menu (important for mobile UX)
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    // Prevent page jumping if href="#", but still close menu
+                    if (link.getAttribute('href') === '#') {
+                        e.preventDefault();
+                    }
+                    // Optional: set active link styling (remove previous, add current)
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    
+                    // If menu is open (mobile), close it after navigation
+                    if (navMenu.classList.contains('active')) {
+                        closeMenu();
+                    }
+                });
+            });
+
+            // Click on overlay backdrop -> close menu
+            overlay.addEventListener('click', () => {
+                if (navMenu.classList.contains('active')) {
+                    closeMenu();
+                }
+            });
+
+            // ---------- 4. RESIZE HANDLER (fix desktop glitches) ----------
+            // If window is resized above 768px while menu is open, close it and reset styles
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    if (navMenu.classList.contains('active')) {
+                        closeMenu();
+                    }
+                    // ensure body overflow is normal
+                    document.body.style.overflow = '';
+                } else {
+                    // optional: if on mobile but menu was closed, nothing special
+                }
+            });
+
+            // ---------- 5. ESCAPE KEY TO CLOSE MENU (accessibility) ----------
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                    closeMenu();
+                }
+            });
+
+            // ---------- 6. INITIAL ACTIVE LINK DETECTION (simple demo) ----------
+            // For the current page (dummy), we keep the first link active.
+            // You can expand this with window.location to match real routes.
+            // This just ensures active style looks good.
+            console.log('✅ Navbar JS loaded: menu toggle, overlay, resize fix, keyboard support');
+        })();
+    </script>
+</body>
+</html>

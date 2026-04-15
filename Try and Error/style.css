@@ -1,0 +1,30 @@
+body {
+    font-family: Arial;
+    text-align: center;
+    margin-top: 100px;
+}
+
+#contactBtn {
+    padding: 12px 25px;
+    font-size: 18px;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+#options {
+    margin-top: 20px;
+}
+
+#options a {
+    display: block;
+    margin: 10px;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.hidden {
+    display: none;
+}
